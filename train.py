@@ -7,13 +7,13 @@ import matplotlib.pyplot as plt
 # 定义是否使用GPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-trainset=datasets.ImageFolder(r"/content/drive/MyDrive/Colab Notebooks/Train-ResNet",
+trainset=datasets.ImageFolder(r"../Train-ResNet",
                               transform=transforms.ToTensor())
-testset=datasets.ImageFolder(r"/content/drive/MyDrive/Colab Notebooks/Test",
+testset=datasets.ImageFolder(r"../Test",
                               transform=transforms.ToTensor())
 
 trainloader = torch.utils.data.DataLoader(
-    trainset, batch_size=1, shuffle=True,num_workers=2,pin_memory=True
+    trainset, batch_size=6, shuffle=True,num_workers=2,pin_memory=True
     )  # 生成一个个batch进行批训练，组成batch的时候顺序打乱取
 testloader = torch.utils.data.DataLoader(
     testset, batch_size=1, shuffle=False,pin_memory=True
@@ -70,6 +70,4 @@ if __name__ == "__main__":
             print('准确率为:', rate)
     print(losses)
     torch.save(net.state_dict(), "last_resnet50_version2.pkl")
-    plt.plot(losses)
-    plt.show()
 
